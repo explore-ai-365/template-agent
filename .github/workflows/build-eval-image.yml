@@ -71,7 +71,7 @@ jobs:
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
       - name: Build image locally for scanning
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
         with:
           context: ./eval-runner
           file: ./eval-runner/Containerfile
@@ -116,7 +116,7 @@ jobs:
       - name: Upload SBOM
         if: always() && hashFiles('sbom-eval.cdx.json') != ''
         continue-on-error: true
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: sbom-eval-${{ steps.version.outputs.version }}
           path: sbom-eval.cdx.json
@@ -141,7 +141,7 @@ jobs:
 
       - name: Upload Trivy report as artifact
         if: always() && hashFiles('trivy-results-eval.sarif') != ''
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: trivy-report-eval-${{ steps.version.outputs.version }}
           path: trivy-results-eval.sarif
@@ -150,7 +150,7 @@ jobs:
       - name: Push multi-platform image
         if: github.event_name != 'pull_request'
         id: push
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
         with:
           context: ./eval-runner
           file: ./eval-runner/Containerfile
@@ -205,7 +205,7 @@ jobs:
 
       - name: Upload last-good-eval artifact
         if: github.event_name != 'pull_request'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: last-good-eval
           path: /tmp/last-good-eval.json
